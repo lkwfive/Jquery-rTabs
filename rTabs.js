@@ -5,6 +5,7 @@
     $.fn.rTabs = function(options){
         //默认值
         var defaultVal = {
+            defaultShow:0,   //默认显示第几个
             prev:'#prev',
             next:'#next',
             btnClass:'.j-tab-nav',  /*按钮的父级Class*/
@@ -30,8 +31,20 @@
             len = con.children().length,
             sw = len * conWidth,
             sh = len * conHeight,
-            i = 0,
+            i = obj.defaultShow,
             len,t,timer;
+
+        // 根据锚点显示内容
+        if(obj.defaultShow==true){
+            var hash = window.location.hash.slice(1);
+            btn.children().each(function() {
+                if(hash==$(this).attr('show-index')){
+                    i = $(this).index();
+                    return false;
+                }
+                i = 0;
+            });
+        }
 
         return this.each(function(){
             //判断动画方向
@@ -54,6 +67,7 @@
                     break;
                 }
             }
+            judgeAnim();
 
             prev.click(function(){
                 i--;
@@ -67,7 +81,7 @@
             next.click(function(){
                 i++;
                 if(i>=len){
-                    i=len;
+                    i=len-1;
                     return true;
                 }
                 judgeAnim();
@@ -94,7 +108,6 @@
 
             //自动运行
             function startRun(){
-                console.log(i);
                 t = setInterval(function(){
                     i++;
                     if(i>=len){
