@@ -5,6 +5,8 @@
 * 支持 prev,next按钮
 * 支持页面打开默认显示`#锚点`指向内容
 
+[demo](http://madeby83.com/demo/Jquery-rTabs-master/demo.html)
+
 ```
 $("#tabauto").rTabs({
     defaultShow:0,   //默认显示第几个 true为根据#锚点显示
